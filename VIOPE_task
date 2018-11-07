@@ -1,0 +1,58 @@
+#include <stdio.h> 
+
+int main() 
+{
+    int a[10][10];
+    int b[10][10];
+    FILE *read_file;
+    FILE *write_file;
+    if((read_file = fopen("mata.txt", "r")) == NULL){
+        printf("Failed to open file (mata.txt).");
+        return 0;        
+    }
+    else{
+        for (int i=0; i<10; i++){
+            for (int j=0; j<10; j++){
+                if (j==9) fscanf(read_file, "%d", &a[i][j]);
+                else fscanf(read_file, "%d ", &a[i][j]);
+            }
+        }
+    }
+    fclose(read_file);
+    if((read_file = fopen("matb.txt", "r")) == NULL){
+        printf("Failed to open file (matb.txt).");
+        return 0;        
+    }
+    else{
+        for (int i=0; i<10; i++){
+            for (int j=0; j<10; j++){
+                if (j==9) fscanf(read_file, "%d", &b[i][j]);
+                else fscanf(read_file, "%d ", &b[i][j]);
+            }
+        }
+    }
+    fclose(read_file);
+    for(int i=0; i<10; i++){
+        for (int j=0; j<10; j++){
+            a[i][j]+=b[i][j];
+        }
+    }
+    if((write_file = fopen("sum.usr", "w")) == NULL){
+        printf("Failed to open file (sum.usr).");
+    }
+    else {
+        for (int i=0; i<10; i++){
+            for (int j=0; j<10; j++){
+                if (j==9){
+                    fprintf(write_file, "%d\n", a[i][j]);
+                }
+                else{
+                    fprintf(write_file, "%d ", a[i][j]);
+                }
+            }
+        }
+        printf("The sum of the matrices has been calculated into the file sum.usr.");
+    }
+    
+    return 0;
+} 
